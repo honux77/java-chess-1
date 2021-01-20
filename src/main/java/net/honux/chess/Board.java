@@ -2,6 +2,7 @@ package net.honux.chess;
 
 import net.honux.pieces.Pawn;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +12,33 @@ public class Board {
     private List<Pawn> blackPawnList = new ArrayList<>();
     private final static int W = 8;
     private final static int H = 8;
-    private char[][] boardArray = new char[W][H];
+    private final static int BLACK_POS = 1;
+    private final static int WHITE_POS = 6;
+    private String[] display = new String[H];
 
     public void init() {
         whitePawnList.clear();
         blackPawnList.clear();
-        addPawn(Pawn.WHITE);
-        addPawn(Pawn.BLACK);
+        addPawns(Pawn.WHITE);
+        addPawns(Pawn.BLACK);
+        cleanDisplay();
+        displayPawns();
+    }
+
+    private void cleanDisplay() {
+        for (int i = 0; i < H; i++) {
+            display[i] = emptyPieces();
+        }
+    }
+
+    public void print() {
+        for (String line: display) {
+            System.out.println(line);
+        }
+    }
+
+    public String[] getDisplay() {
+        return display;
     }
 
     public int getSize(String color) {
@@ -49,9 +70,18 @@ public class Board {
         return sb.toString();
     }
 
-    private void addPawn(String color) {
+    private void addPawns(String color) {
         for (int i = 0; i < W; i++) {
             getPawnList(color).add(new Pawn(color));
         }
+    }
+
+    private void displayPawns() {
+        display[BLACK_POS] = getPawns(Pawn.BLACK);
+        display[WHITE_POS] = getPawns(Pawn.WHITE);
+    }
+
+    private String emptyPieces() {
+        return "........";
     }
 }
