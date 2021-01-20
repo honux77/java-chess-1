@@ -19,8 +19,8 @@ public class BoardTest {
     @DisplayName("흑백 폰이 각 8개씩 있어야 한다.")
     void init() {
         board.init();
-        assertThat(board.getWhitePawn()).isEqualTo("pppppppp");
-        assertThat(board.getBlackPawn()).isEqualTo("PPPPPPPP");
+        assertThat(board.getPawns(Pawn.WHITE)).isEqualTo("pppppppp");
+        assertThat(board.getPawns(Pawn.BLACK)).isEqualTo("PPPPPPPP");
     }
 
     @Test

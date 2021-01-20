@@ -9,10 +9,15 @@ public class Board {
 
     private List<Pawn> whitePawnList= new ArrayList<>();
     private List<Pawn> blackPawnList = new ArrayList<>();
+    private final static int W = 8;
+    private final static int H = 8;
+    private char[][] boardArray = new char[W][H];
 
     public void init() {
         whitePawnList.clear();
         blackPawnList.clear();
+        addPawn(Pawn.WHITE);
+        addPawn(Pawn.BLACK);
     }
 
     public int getSize(String color) {
@@ -36,14 +41,17 @@ public class Board {
         else return blackPawnList;
     }
 
-
-    public String getWhitePawn() {
-        //TODO: implement
-        return null;
+    public String getPawns(String color) {
+        StringBuilder sb = new StringBuilder();
+        for(Pawn p: getPawnList(color)) {
+            sb.append(p.getRepresentation());
+        }
+        return sb.toString();
     }
 
-    public String getBlackPawn() {
-        //TODO: implement
-        return null;
+    private void addPawn(String color) {
+        for (int i = 0; i < W; i++) {
+            getPawnList(color).add(new Pawn(color));
+        }
     }
 }
