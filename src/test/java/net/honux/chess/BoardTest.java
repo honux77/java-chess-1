@@ -49,7 +49,9 @@ public class BoardTest {
     }
 
     void checkAddPawn(String color, int size) {
-        board.add(new Piece(color, "pawn"));
+        if (color == Piece.WHITE) board.add(Piece.createWhitePawn());
+        if (color == Piece.BLACK) board.add(Piece.createBlackPawn());
+
         assertThat(board.getSize(color)).isEqualTo(size);
         assertThat(board.getPawn(color, size - 1).getColor()).isEqualTo(color);
     }

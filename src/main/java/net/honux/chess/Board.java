@@ -78,7 +78,12 @@ public class Board {
 
     private void addPawns(String color) {
         for (int i = 0; i < W; i++) {
-            getPawnList(color).add(new Piece(color, "pawn"));
+            if (color == Piece.WHITE) {
+                getPawnList(color).add(Piece.createWhitePawn());
+            }
+            else {
+                getPawnList(color).add(Piece.createBlackPawn());
+            }
         }
     }
 

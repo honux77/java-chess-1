@@ -6,20 +6,16 @@ import static org.assertj.core.api.Assertions.*;
 public class PieceTest {
 
     @Test
-    @DisplayName("흑백 기물을 생성하고 갖자 적당한 표현문자를 가져야 한다")
-    void create() {
-        verifyPawn(Piece.WHITE);
-        verifyPawn(Piece.BLACK);
+
+    @DisplayName("흑백 폰들을 생성하고 적당한 표현문자를 가져야 한다")
+    void createPawn() {
+        Piece wp = Piece.createWhitePawn();
+        Piece bp = Piece.createBlackPawn();
+        assertThat(wp.getColor()).isEqualTo(Piece.WHITE);
+        assertThat(bp.getColor()).isEqualTo(Piece.BLACK);
+        assertThat(wp.getRepresentation()).isEqualTo(Piece.WHITE_PAWN_REPRESENTATION);
+        assertThat(bp.getRepresentation()).isEqualTo(Piece.BLACK_PAWN_REPRESENTATION);
     }
 
-    void verifyPawn(String color) {
-        Piece p = new Piece(color, "pawn");
-        assertThat(p.getColor()).isEqualTo(color);
-        assertThat(p.getName()).isEqualTo("pawn");
-        if (color == Piece.WHITE) {
-            assertThat(p.getRepresentation()).isEqualTo(Piece.WHITE_REPRESENTATION);
-        } else {
-            assertThat(p.getRepresentation()).isEqualTo(Piece.BLACK_REPRESENTATION);
-        }
-    }
 }
+
