@@ -32,6 +32,23 @@ public class Piece {
         setRepresentation(name);
     }
 
+    public static Piece createWhitePawn() {
+        return new Piece(WHITE, PAWN);
+    }
+
+    public static Piece createBlackPawn() {
+        return new Piece(BLACK, PAWN);
+    }
+
+    public static Piece createWhiteRook() {
+        return new Piece(WHITE, ROOK);
+    }
+
+    public static Piece createBlackRook() {
+        return new Piece(BLACK, ROOK);
+    }
+
+
     public static Piece createWhiteKing() {
         return new Piece(WHITE, KING);
     }
@@ -52,15 +69,6 @@ public class Piece {
         if(this.color == BLACK) {
             this.representation = toUpperCase(this.representation);
         }
-    }
-
-
-    public static Piece createWhitePawn() {
-        return new Piece(WHITE, PAWN);
-    }
-
-    public static Piece createBlackPawn() {
-        return new Piece(BLACK, PAWN);
     }
 
     public String getColor() {
