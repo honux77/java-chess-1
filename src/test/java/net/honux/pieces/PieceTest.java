@@ -9,38 +9,37 @@ public class PieceTest {
     @Test
     @DisplayName("흑백 폰 생성 및 표현문자 체크")
     void createPieces() {
-        pieceCheck(Piece.createWhitePawn(), Piece.createBlackPawn(), Piece.PAWN_REPRESENTATION);
-
+        pieceCheck(Piece.create(Piece.PAWN, Piece.WHITE), Piece.create(Piece.PAWN, Piece.BLACK), Piece.PAWN_REPRESENTATION);
     }
 
     @Test
     @DisplayName("흑백 룩 생성 및 표현문자 체크")
     void createRook() {
-        pieceCheck(Piece.createWhiteRook(), Piece.createBlackRook(), Piece.ROOK_REPRESENTATION);
+        pieceCheck(Piece.create(Piece.ROOK, Piece.WHITE), Piece.create(Piece.ROOK, Piece.BLACK), Piece.ROOK_REPRESENTATION);
     }
 
     @Test
     @DisplayName("흑백 기사 생성 및 표현문자 체크")
     void createKnight() {
-        pieceCheck(Piece.createWhiteKnight(), Piece.createBlackKnight(), Piece.KNIGHT_REPRESENTATION);
+        pieceCheck(Piece.create(Piece.KNIGHT, Piece.WHITE), Piece.create(Piece.KNIGHT, Piece.BLACK), Piece.KNIGHT_REPRESENTATION);
     }
 
     @Test
     @DisplayName("흑백 비숍 생성 및 표현문자 체크")
     void createBishop() {
-        pieceCheck(Piece.createWhiteBishop(), Piece.createBlackBishop(), Piece.BISHOP_REPRESENTATION);
+        pieceCheck(Piece.create(Piece.BISHOP, Piece.WHITE), Piece.create(Piece.BISHOP, Piece.BLACK), Piece.BISHOP_REPRESENTATION);
     }
 
     @Test
     @DisplayName("흑백 여왕 생성 및 표현문자 체크")
     void createQueen() {
-        pieceCheck(Piece.createWhiteQueen(), Piece.createBlackQueen(), Piece.QUEEN_REPRESENTATION);
+        pieceCheck(Piece.create(Piece.QUEEN, Piece.WHITE), Piece.create(Piece.QUEEN, Piece.BLACK), Piece.QUEEN_REPRESENTATION);
     }
 
     @Test
     @DisplayName("흑백 킹 생성 및 표현문자 체크")
     void createKing() {
-        pieceCheck(Piece.createWhiteKing(), Piece.createBlackKing(), Piece.KING_REPRESENTATION);
+        pieceCheck(Piece.create(Piece.KING, Piece.WHITE), Piece.create(Piece.KING, Piece.BLACK), Piece.KING_REPRESENTATION);
     }
 
     void pieceCheck(Piece p1, Piece p2, char repr) {

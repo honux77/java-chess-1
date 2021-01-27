@@ -19,10 +19,20 @@ public class Board {
     public void init() {
         whitePieceList.clear();
         blackPieceList.clear();
-        addPawns(Piece.WHITE);
+
+        addOthers(Piece.BLACK);
         addPawns(Piece.BLACK);
+
+        addPawns(Piece.WHITE);
+        addOthers(Piece.WHITE);
+
+
         cleanDisplay();
         displayPawns();
+    }
+
+    private void addOthers(String color) {
+        //TODO: implement
     }
 
     private void cleanDisplay() {
@@ -43,12 +53,8 @@ public class Board {
         System.out.print(getDisplayString());
     }
 
-    public String[] getDisplay() {
-        return display;
-    }
-
     public int getSize(String color) {
-        return getPawnList(color).size();
+        return getList(color).size();
     }
 
     public void add(Piece piece) {
@@ -59,18 +65,18 @@ public class Board {
         }
     }
 
-    public Piece getPawn(String color, int index) {
-        return getPawnList(color).get(index);
+    public Piece getPiece(String color, int index) {
+        return getList(color).get(index);
     }
 
-    private List<Piece> getPawnList(String color) {
+    private List<Piece> getList(String color) {
         if (color == Piece.WHITE) return whitePieceList;
         else return blackPieceList;
     }
 
     public String getPawns(String color) {
         StringBuilder sb = new StringBuilder();
-        for(Piece p: getPawnList(color)) {
+        for(Piece p: getList(color)) {
             sb.append(p.getRepresentation());
         }
         return sb.toString();
@@ -78,12 +84,7 @@ public class Board {
 
     private void addPawns(String color) {
         for (int i = 0; i < W; i++) {
-            if (color == Piece.WHITE) {
-                getPawnList(color).add(Piece.createWhitePawn());
-            }
-            else {
-                getPawnList(color).add(Piece.createBlackPawn());
-            }
+            getList(color).add(Piece.create(Piece.PAWN, color));
         }
     }
 
@@ -94,5 +95,9 @@ public class Board {
 
     private String emptyPieces() {
         return "........";
+    }
+
+    public int size() {
+        return this.whitePieceList.size() + this.blackPieceList.size();
     }
 }

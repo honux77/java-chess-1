@@ -3,6 +3,7 @@ package net.honux.chess;
 import net.honux.pieces.Piece;
 import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.*;
+import static net.honux.utils.StringUtils.appendNewLine;
 
 public class BoardTest {
     Board board;
@@ -19,24 +20,25 @@ public class BoardTest {
     }
 
     @Test
+    @DisplayName("체스보드 초기화가 완료되어야 한다.")
+    public void initAllPieces() {
+        board.init();
+        assertThat(board.size()).isEqualTo(32);
+        String blankRank = appendNewLine("........");
+        assertThat(board.getDisplayString()).isEqualTo(
+                appendNewLine("RNBQKBNR") +
+                        appendNewLine("PPPPPPPP") +
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("pppppppp") +
+                        appendNewLine("rnbqkbnr"));
+    }
+
+    @Test
     @DisplayName("흑백 폰이 각 8개씩 있어야 한다.")
     void init() {
         board.init();
         assertThat(board.getPawns(Piece.WHITE)).isEqualTo(whitePawn);
         assertThat(board.getPawns(Piece.BLACK)).isEqualTo(blackPawn);
-    }
-
-    @Test
-    @DisplayName("8 * 8 체스 판에 흑백 폰 두 줄을 출력해야 한다.")
-    void display() {
-        board.init();
-        String[] display = board.getDisplay();
-        assertThat(display[0]).isEqualTo(empty);
-        assertThat(display[2]).isEqualTo(empty);
-        assertThat(display[4]).isEqualTo(empty);
-        assertThat(display[1]).isEqualTo(blackPawn);
-        assertThat(display[6]).isEqualTo(whitePawn);
-        assertThat(display[7]).isEqualTo(empty);
     }
 
     @Test
@@ -49,11 +51,10 @@ public class BoardTest {
     }
 
     void checkAddPawn(String color, int size) {
-        if (color == Piece.WHITE) board.add(Piece.createWhitePawn());
-        if (color == Piece.BLACK) board.add(Piece.createBlackPawn());
-
+        if (color == Piece.WHITE) board.add(Piece.create(Piece.PAWN, Piece.WHITE));
+        if (color == Piece.BLACK) board.add(Piece.create(Piece.PAWN, Piece.BLACK));
         assertThat(board.getSize(color)).isEqualTo(size);
-        assertThat(board.getPawn(color, size - 1).getColor()).isEqualTo(color);
+        assertThat(board.getPiece(color, size - 1).getColor()).isEqualTo(color);
     }
 }
 

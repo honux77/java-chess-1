@@ -25,64 +25,21 @@ public class Piece {
 
 
     private String color;
-    private String name;
+    private String type;
     private char representation;
 
-    private Piece(String color, String name) {
+    private Piece(String type, String color) {
+        this.type = type;
         this.color = color;
-        this.name = name;
-        setRepresentation(name);
+        setRepresentation(type);
     }
 
-    public static Piece createWhitePawn() {
-        return new Piece(WHITE, PAWN);
+    public static Piece create(String type, String color) {
+        return new Piece(type, color);
     }
 
-    public static Piece createBlackPawn() {
-        return new Piece(BLACK, PAWN);
-    }
-
-    public static Piece createWhiteRook() {
-        return new Piece(WHITE, ROOK);
-    }
-
-    public static Piece createBlackRook() {
-        return new Piece(BLACK, ROOK);
-    }
-
-    public static Piece createWhiteKnight() {
-        return new Piece(WHITE, KNIGHT);
-    }
-
-    public static Piece createBlackKnight() {
-        return new Piece(BLACK, KNIGHT);
-    }
-    public static Piece createWhiteBishop() {
-        return new Piece(WHITE, BISHOP);
-    }
-
-    public static Piece createBlackBishop() {
-        return new Piece(BLACK, BISHOP);
-    }
-
-    public static Piece createWhiteQueen() {
-        return new Piece(WHITE, QUEEN);
-    }
-
-    public static Piece createBlackQueen() {
-        return new Piece(BLACK, QUEEN);
-    }
-
-    public static Piece createWhiteKing() {
-        return new Piece(WHITE, KING);
-    }
-
-    public static Piece createBlackKing() {
-        return new Piece(BLACK, KING);
-    }
-
-    private void setRepresentation(String name) {
-        switch(name) {
+    private void setRepresentation(String type) {
+        switch(type) {
             case PAWN:
                 this.representation = PAWN_REPRESENTATION;
                 break;
@@ -114,8 +71,8 @@ public class Piece {
         return color;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
     public char getRepresentation() {
