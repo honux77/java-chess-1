@@ -1,14 +1,25 @@
 package net.honux.pieces;
 
-import java.time.Period;
+import static java.lang.Character.toUpperCase;
 
 public class Piece {
 
     public static final String WHITE = "white";
     public static final String BLACK = "black";
-    public static final char WHITE_PAWN_REPRESENTATION = 'p';
-    public static final char BLACK_PAWN_REPRESENTATION = 'P';
+    public static final char PAWN_REPRESENTATION = 'p';
+    public static final char ROOK_REPRESENTATION = 'r';
+    public static final char KNIGHT_REPRESENTATION = 'n';
+    public static final char BISHOP_REPRESENTATION = 'b';
+    public static final char QUEEN_REPRESENTATION = 'q';
+    public static final char KING_REPRESENTATION = 'k';
+
     public static final String PAWN = "pawn";
+    public static final String ROOK = "rook";
+    public static final String KNIGHT = "knight";
+    public static final String BISHOP = "bishop";
+    public static final String QUEEN = "queen";
+    public static final String KING = "king";
+
 
 
     private String color;
@@ -18,21 +29,31 @@ public class Piece {
     private Piece(String color, String name) {
         this.color = color;
         this.name = name;
-        if (color == WHITE) createWhitePiece(name);
-        else createBlackPiece(name);
+        setRepresentation(name);
     }
 
-    private void createWhitePiece(String name) {
-        if (name == PAWN) {
-            this.representation = WHITE_PAWN_REPRESENTATION;
+    public static Piece createWhiteKing() {
+        return new Piece(WHITE, KING);
+    }
+
+    public static Piece createBlackKing() {
+        return new Piece(BLACK, KING);
+    }
+
+    private void setRepresentation(String name) {
+        switch(name) {
+            case PAWN:
+                this.representation = PAWN_REPRESENTATION;
+                break;
+            case KING:
+                this.representation = KING_REPRESENTATION;
+        }
+
+        if(this.color == BLACK) {
+            this.representation = toUpperCase(this.representation);
         }
     }
 
-    private void createBlackPiece(String name) {
-        if (name == PAWN) {
-            this.representation = BLACK_PAWN_REPRESENTATION;
-        }
-    }
 
     public static Piece createWhitePawn() {
         return new Piece(WHITE, PAWN);
