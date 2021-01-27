@@ -20,10 +20,16 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("체스보드 초기화가 완료되어야 한다.")
-    public void initAllPieces() {
+    @DisplayName("체스보드 초기화시 크기는 32여야 한다")
+    public void initAllPieceSize() {
         board.init();
         assertThat(board.size()).isEqualTo(32);
+    }
+
+    @Test
+    @DisplayName("체스보드 초기화후 블랙이 제자리이 있어야 한다")
+    public void checkBlackRepresentation() {
+        board.init();
         String blankRank = appendNewLine("........");
         assertThat(board.getDisplayString()).isEqualTo(
                 appendNewLine("RNBQKBNR") +
@@ -31,14 +37,6 @@ public class BoardTest {
                         blankRank + blankRank + blankRank + blankRank +
                         appendNewLine("pppppppp") +
                         appendNewLine("rnbqkbnr"));
-    }
-
-    @Test
-    @DisplayName("흑백 폰이 각 8개씩 있어야 한다.")
-    void init() {
-        board.init();
-        assertThat(board.getPawns(Piece.WHITE)).isEqualTo(whitePawn);
-        assertThat(board.getPawns(Piece.BLACK)).isEqualTo(blackPawn);
     }
 
     @Test

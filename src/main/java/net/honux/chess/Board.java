@@ -12,8 +12,10 @@ public class Board {
     private List<Piece> blackPieceList = new ArrayList<>();
     private final static int W = 8;
     private final static int H = 8;
-    private final static int BLACK_POS = 1;
-    private final static int WHITE_POS = 6;
+    private final static int BLACK_L1 = 0;
+    private final static int BLACK_L2 = 1;
+    private final static int WHITE_L1 = 6;
+    private final static int WHITE_L2 = 7;
     private String[] display = new String[H];
 
     public void init() {
@@ -32,7 +34,15 @@ public class Board {
     }
 
     private void addOthers(String color) {
-        //TODO: implement
+        List<Piece> list = getList(color);
+        list.add(Piece.create(Piece.ROOK, color));
+        list.add(Piece.create(Piece.KNIGHT, color));
+        list.add(Piece.create(Piece.BISHOP, color));
+        list.add(Piece.create(Piece.QUEEN, color));
+        list.add(Piece.create(Piece.KING, color));
+        list.add(Piece.create(Piece.BISHOP, color));
+        list.add(Piece.create(Piece.KNIGHT, color));
+        list.add(Piece.create(Piece.ROOK, color));
     }
 
     private void cleanDisplay() {
@@ -74,10 +84,13 @@ public class Board {
         else return blackPieceList;
     }
 
-    public String getPawns(String color) {
+    public String getPieces(String color, int line) {
         StringBuilder sb = new StringBuilder();
-        for(Piece p: getList(color)) {
-            sb.append(p.getRepresentation());
+        List<Piece> pieces = getList(color);
+        int startIdx = 0;
+        if (line == 2) startIdx = W;
+        for(int i = startIdx; i < startIdx + W; i++) {
+            sb.append(pieces.get(i).getRepresentation());
         }
         return sb.toString();
     }
@@ -89,8 +102,10 @@ public class Board {
     }
 
     private void displayPawns() {
-        display[BLACK_POS] = getPawns(Piece.BLACK);
-        display[WHITE_POS] = getPawns(Piece.WHITE);
+        display[BLACK_L1] = getPieces(Piece.BLACK, 1);
+        display[BLACK_L2] = getPieces(Piece.BLACK, 2);
+        display[WHITE_L1] = getPieces(Piece.WHITE, 1);
+        display[WHITE_L2] = getPieces(Piece.WHITE, 2);
     }
 
     private String emptyPieces() {
