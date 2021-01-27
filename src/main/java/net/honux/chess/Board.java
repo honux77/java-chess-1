@@ -2,9 +2,9 @@ package net.honux.chess;
 
 import net.honux.pieces.Pawn;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import static net.honux.utils.StringUtils.appendNewLine;
 
 public class Board {
 
@@ -31,10 +31,16 @@ public class Board {
         }
     }
 
-    public void print() {
+    public String getDisplayString() {
+        String ret = "";
         for (String line: display) {
-            System.out.println(line);
+            ret += appendNewLine(line);
         }
+        return ret;
+    }
+
+    public void print() {
+        System.out.print(getDisplayString());
     }
 
     public String[] getDisplay() {
