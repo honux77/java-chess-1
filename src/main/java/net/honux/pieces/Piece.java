@@ -12,6 +12,8 @@ public class Piece {
     public static final char BISHOP_REPRESENTATION = 'b';
     public static final char QUEEN_REPRESENTATION = 'q';
     public static final char KING_REPRESENTATION = 'k';
+    public static final char NONE_REPRESENTATION = 'X';
+
 
     public static final String PAWN = "pawn";
     public static final String ROOK = "rook";
@@ -48,6 +50,28 @@ public class Piece {
         return new Piece(BLACK, ROOK);
     }
 
+    public static Piece createWhiteKnight() {
+        return new Piece(WHITE, KNIGHT);
+    }
+
+    public static Piece createBlackKnight() {
+        return new Piece(BLACK, KNIGHT);
+    }
+    public static Piece createWhiteBishop() {
+        return new Piece(WHITE, BISHOP);
+    }
+
+    public static Piece createBlackBishop() {
+        return new Piece(BLACK, BISHOP);
+    }
+
+    public static Piece createWhiteQueen() {
+        return new Piece(WHITE, QUEEN);
+    }
+
+    public static Piece createBlackQueen() {
+        return new Piece(BLACK, QUEEN);
+    }
 
     public static Piece createWhiteKing() {
         return new Piece(WHITE, KING);
@@ -62,8 +86,23 @@ public class Piece {
             case PAWN:
                 this.representation = PAWN_REPRESENTATION;
                 break;
+            case ROOK:
+                this.representation = ROOK_REPRESENTATION;
+                break;
+            case KNIGHT:
+                this.representation = KNIGHT_REPRESENTATION;
+                break;
+            case BISHOP:
+                this.representation = BISHOP_REPRESENTATION;
+                break;
+            case QUEEN:
+                this.representation = QUEEN_REPRESENTATION;
+                break;
             case KING:
                 this.representation = KING_REPRESENTATION;
+                break;
+            default:
+                this.representation = NONE_REPRESENTATION;
         }
 
         if(this.color == BLACK) {

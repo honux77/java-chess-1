@@ -7,10 +7,34 @@ import static java.lang.Character.toUpperCase;
 public class PieceTest {
 
     @Test
-    @DisplayName("흑백 폰들을 생성하고 적당한 표현문자를 가져야 한다")
-    void createPawn() {
+    @DisplayName("흑백 폰 생성 및 표현문자 체크")
+    void createPieces() {
         pieceCheck(Piece.createWhitePawn(), Piece.createBlackPawn(), Piece.PAWN_REPRESENTATION);
 
+    }
+
+    @Test
+    @DisplayName("흑백 룩 생성 및 표현문자 체크")
+    void createRook() {
+        pieceCheck(Piece.createWhiteRook(), Piece.createBlackRook(), Piece.ROOK_REPRESENTATION);
+    }
+
+    @Test
+    @DisplayName("흑백 기사 생성 및 표현문자 체크")
+    void createKnight() {
+        pieceCheck(Piece.createWhiteKnight(), Piece.createBlackKnight(), Piece.KNIGHT_REPRESENTATION);
+    }
+
+    @Test
+    @DisplayName("흑백 비숍 생성 및 표현문자 체크")
+    void createBishop() {
+        pieceCheck(Piece.createWhiteBishop(), Piece.createBlackBishop(), Piece.BISHOP_REPRESENTATION);
+    }
+
+    @Test
+    @DisplayName("흑백 여왕 생성 및 표현문자 체크")
+    void createQueen() {
+        pieceCheck(Piece.createWhiteQueen(), Piece.createBlackQueen(), Piece.QUEEN_REPRESENTATION);
     }
 
     @Test
