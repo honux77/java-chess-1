@@ -1,6 +1,6 @@
 package net.honux.chess;
 
-import net.honux.pieces.Pawn;
+import net.honux.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import static net.honux.utils.StringUtils.appendNewLine;
 
 public class Board {
 
-    private List<Pawn> whitePawnList= new ArrayList<>();
-    private List<Pawn> blackPawnList = new ArrayList<>();
+    private List<Piece> whitePieceList = new ArrayList<>();
+    private List<Piece> blackPieceList = new ArrayList<>();
     private final static int W = 8;
     private final static int H = 8;
     private final static int BLACK_POS = 1;
@@ -17,10 +17,10 @@ public class Board {
     private String[] display = new String[H];
 
     public void init() {
-        whitePawnList.clear();
-        blackPawnList.clear();
-        addPawns(Pawn.WHITE);
-        addPawns(Pawn.BLACK);
+        whitePieceList.clear();
+        blackPieceList.clear();
+        addPawns(Piece.WHITE);
+        addPawns(Piece.BLACK);
         cleanDisplay();
         displayPawns();
     }
@@ -51,26 +51,26 @@ public class Board {
         return getPawnList(color).size();
     }
 
-    public void add(Pawn pawn) {
-        if (pawn.getColor() == Pawn.BLACK) {
-            blackPawnList.add(pawn);
+    public void add(Piece piece) {
+        if (piece.getColor() == Piece.BLACK) {
+            blackPieceList.add(piece);
         } else {
-            whitePawnList.add(pawn);
+            whitePieceList.add(piece);
         }
     }
 
-    public Pawn getPawn(String color, int index) {
+    public Piece getPawn(String color, int index) {
         return getPawnList(color).get(index);
     }
 
-    private List<Pawn> getPawnList(String color) {
-        if (color == Pawn.WHITE) return whitePawnList;
-        else return blackPawnList;
+    private List<Piece> getPawnList(String color) {
+        if (color == Piece.WHITE) return whitePieceList;
+        else return blackPieceList;
     }
 
     public String getPawns(String color) {
         StringBuilder sb = new StringBuilder();
-        for(Pawn p: getPawnList(color)) {
+        for(Piece p: getPawnList(color)) {
             sb.append(p.getRepresentation());
         }
         return sb.toString();
@@ -78,13 +78,13 @@ public class Board {
 
     private void addPawns(String color) {
         for (int i = 0; i < W; i++) {
-            getPawnList(color).add(new Pawn(color));
+            getPawnList(color).add(new Piece(color, "pawn"));
         }
     }
 
     private void displayPawns() {
-        display[BLACK_POS] = getPawns(Pawn.BLACK);
-        display[WHITE_POS] = getPawns(Pawn.WHITE);
+        display[BLACK_POS] = getPawns(Piece.BLACK);
+        display[WHITE_POS] = getPawns(Piece.WHITE);
     }
 
     private String emptyPieces() {

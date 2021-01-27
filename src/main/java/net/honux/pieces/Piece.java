@@ -1,6 +1,6 @@
 package net.honux.pieces;
 
-public class Pawn {
+public class Piece {
 
     public static final String WHITE = "white";
     public static final String BLACK = "black";
@@ -8,15 +8,13 @@ public class Pawn {
     public static final char BLACK_REPRESENTATION = 'P';
 
     private String color;
+    private String name;
     private char representation;
 
-    public Pawn() {
-        this(WHITE);
-        representation = WHITE_REPRESENTATION;
-    }
-
-    public Pawn(String color) {
+    public Piece(String color, String name) {
         this.color = color;
+        this.name = name;
+
         if (color == BLACK) {
             this.representation = BLACK_REPRESENTATION;
         } else {
@@ -26,6 +24,10 @@ public class Pawn {
 
     public String getColor() {
         return color;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public char getRepresentation() {
