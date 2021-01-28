@@ -22,18 +22,18 @@ public class Board {
         whitePieceList.clear();
         blackPieceList.clear();
 
-        addOthers(Piece.BLACK);
-        addPawns(Piece.BLACK);
+        addOthers(Piece.Color.BLACK);
+        addPawns(Piece.Color.BLACK);
 
-        addPawns(Piece.WHITE);
-        addOthers(Piece.WHITE);
+        addPawns(Piece.Color.WHITE);
+        addOthers(Piece.Color.WHITE);
 
 
         cleanDisplay();
         displayPawns();
     }
 
-    private void addOthers(String color) {
+    private void addOthers(Piece.Color color) {
         List<Piece> list = getList(color);
         list.add(Piece.create(Piece.ROOK, color));
         list.add(Piece.create(Piece.KNIGHT, color));
@@ -63,28 +63,28 @@ public class Board {
         System.out.print(getDisplayString());
     }
 
-    public int getSize(String color) {
+    public int getSize(Piece.Color color) {
         return getList(color).size();
     }
 
     public void add(Piece piece) {
-        if (piece.getColor() == Piece.BLACK) {
+        if (piece.getColor() == Piece.Color.BLACK) {
             blackPieceList.add(piece);
         } else {
             whitePieceList.add(piece);
         }
     }
 
-    public Piece getPiece(String color, int index) {
+    public Piece getPiece(Piece.Color color, int index) {
         return getList(color).get(index);
     }
 
-    private List<Piece> getList(String color) {
-        if (color == Piece.WHITE) return whitePieceList;
+    private List<Piece> getList(Piece.Color color) {
+        if (color == Piece.Color.WHITE) return whitePieceList;
         else return blackPieceList;
     }
 
-    public String getPieces(String color, int line) {
+    public String getPieces(Piece.Color color, int line) {
         StringBuilder sb = new StringBuilder();
         List<Piece> pieces = getList(color);
         int startIdx = 0;
@@ -95,17 +95,17 @@ public class Board {
         return sb.toString();
     }
 
-    private void addPawns(String color) {
+    private void addPawns(Piece.Color color) {
         for (int i = 0; i < W; i++) {
             getList(color).add(Piece.create(Piece.PAWN, color));
         }
     }
 
     private void displayPawns() {
-        display[BLACK_L1] = getPieces(Piece.BLACK, 1);
-        display[BLACK_L2] = getPieces(Piece.BLACK, 2);
-        display[WHITE_L1] = getPieces(Piece.WHITE, 1);
-        display[WHITE_L2] = getPieces(Piece.WHITE, 2);
+        display[BLACK_L1] = getPieces(Piece.Color.BLACK, 1);
+        display[BLACK_L2] = getPieces(Piece.Color.BLACK, 2);
+        display[WHITE_L1] = getPieces(Piece.Color.WHITE, 1);
+        display[WHITE_L2] = getPieces(Piece.Color.WHITE, 2);
     }
 
     private String emptyPieces() {

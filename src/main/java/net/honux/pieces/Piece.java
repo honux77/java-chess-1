@@ -4,7 +4,7 @@ import static java.lang.Character.toUpperCase;
 
 public class Piece {
 
-    public static final String WHITE = "white";
+    public enum Color { BLACK, WHITE, NO_COLOR };
     public static final String BLACK = "black";
     public static final char PAWN_REPRESENTATION = 'p';
     public static final char ROOK_REPRESENTATION = 'r';
@@ -24,17 +24,17 @@ public class Piece {
 
 
 
-    private String color;
+    private Color color;
     private String type;
     private char representation;
 
-    private Piece(String type, String color) {
+    private Piece(String type, Color color) {
         this.type = type;
         this.color = color;
         setRepresentation(type);
     }
 
-    public static Piece create(String type, String color) {
+    public static Piece create(String type, Color color) {
         return new Piece(type, color);
     }
 
@@ -62,12 +62,12 @@ public class Piece {
                 this.representation = NONE_REPRESENTATION;
         }
 
-        if(this.color == BLACK) {
+        if(this.color == Piece.Color.BLACK) {
             this.representation = toUpperCase(this.representation);
         }
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 

@@ -15,8 +15,9 @@ public class BoardTest {
     void setup() {
         board = new Board();
         assertThat(board).isNotNull();
-        assertThat(board.getSize(Piece.WHITE)).isEqualTo(0);
-        assertThat(board.getSize(Piece.BLACK)).isEqualTo(0);
+        assertThat(board.size()).isEqualTo(0);
+        assertThat(board.getSize(Piece.Color.WHITE)).isEqualTo(0);
+        assertThat(board.getSize(Piece.Color.BLACK)).isEqualTo(0);
     }
 
     @Test
@@ -42,15 +43,15 @@ public class BoardTest {
     @Test
     @DisplayName("보드가 생성되고 폰을 추가할 수 있어야 한다.")
     void create() {
-        checkAddPawn(Piece.WHITE, 1);
-        checkAddPawn(Piece.BLACK, 1);
-        checkAddPawn(Piece.WHITE, 2);
-        checkAddPawn(Piece.BLACK, 2);
+        checkAddPawn(Piece.Color.WHITE, 1);
+        checkAddPawn(Piece.Color.BLACK, 1);
+        checkAddPawn(Piece.Color.WHITE, 2);
+        checkAddPawn(Piece.Color.BLACK, 2);
     }
 
-    void checkAddPawn(String color, int size) {
-        if (color == Piece.WHITE) board.add(Piece.create(Piece.PAWN, Piece.WHITE));
-        if (color == Piece.BLACK) board.add(Piece.create(Piece.PAWN, Piece.BLACK));
+    void checkAddPawn(Piece.Color color, int size) {
+        if (color == Piece.Color.WHITE) board.add(Piece.create(Piece.PAWN, Piece.Color.WHITE));
+        if (color == Piece.Color.BLACK) board.add(Piece.create(Piece.PAWN, Piece.Color.BLACK));
         assertThat(board.getSize(color)).isEqualTo(size);
         assertThat(board.getPiece(color, size - 1).getColor()).isEqualTo(color);
     }
