@@ -2,7 +2,11 @@ package net.honux.pieces;
 
 public enum Type {
     PAWN('p'),
-    ROOK('r');
+    ROOK('r'),
+    KNIGHT('n'),
+    BISHOP('b'),
+    QUEEN('q'),
+    KING('k');
 
     private char representation;
 

@@ -9,37 +9,37 @@ public class PieceTest {
     @Test
     @DisplayName("흑백 폰 생성 및 표현문자 체크")
     void createPieces() {
-        pieceCheck(Piece.create(Piece.PAWN, Piece.Color.WHITE), Piece.create(Piece.PAWN, Piece.Color.BLACK), Piece.PAWN_REPRESENTATION);
+        pieceCheck(Piece.create(Type.PAWN, Piece.Color.WHITE), Piece.create(Type.PAWN, Piece.Color.BLACK), Type.PAWN.getRepresentation());
     }
 
     @Test
     @DisplayName("흑백 룩 생성 및 표현문자 체크")
     void createRook() {
-        pieceCheck(Piece.create(Piece.ROOK, Piece.Color.WHITE), Piece.create(Piece.ROOK, Piece.Color.BLACK), Piece.ROOK_REPRESENTATION);
+        pieceCheck(Piece.create(Type.ROOK, Piece.Color.WHITE), Piece.create(Type.ROOK, Piece.Color.BLACK), Type.ROOK.getRepresentation());
     }
 
     @Test
     @DisplayName("흑백 기사 생성 및 표현문자 체크")
     void createKnight() {
-        pieceCheck(Piece.create(Piece.KNIGHT, Piece.Color.WHITE), Piece.create(Piece.KNIGHT, Piece.Color.BLACK), Piece.KNIGHT_REPRESENTATION);
+        pieceCheck(Piece.create(Type.KNIGHT, Piece.Color.WHITE), Piece.create(Type.KNIGHT, Piece.Color.BLACK), Type.KNIGHT.getRepresentation());
     }
 
     @Test
     @DisplayName("흑백 비숍 생성 및 표현문자 체크")
     void createBishop() {
-        pieceCheck(Piece.create(Piece.BISHOP, Piece.Color.WHITE), Piece.create(Piece.BISHOP, Piece.Color.BLACK), Piece.BISHOP_REPRESENTATION);
+        pieceCheck(Piece.create(Type.BISHOP, Piece.Color.WHITE), Piece.create(Type.BISHOP, Piece.Color.BLACK), Type.BISHOP.getRepresentation());
     }
 
     @Test
     @DisplayName("흑백 여왕 생성 및 표현문자 체크")
     void createQueen() {
-        pieceCheck(Piece.create(Piece.QUEEN, Piece.Color.WHITE), Piece.create(Piece.QUEEN, Piece.Color.BLACK), Piece.QUEEN_REPRESENTATION);
+        pieceCheck(Piece.create(Type.QUEEN, Piece.Color.WHITE), Piece.create(Type.QUEEN, Piece.Color.BLACK), Type.QUEEN.getRepresentation());
     }
 
     @Test
     @DisplayName("흑백 킹 생성 및 표현문자 체크")
     void createKing() {
-        pieceCheck(Piece.create(Piece.KING, Piece.Color.WHITE), Piece.create(Piece.KING, Piece.Color.BLACK), Piece.KING_REPRESENTATION);
+        pieceCheck(Piece.create(Type.KING, Piece.Color.WHITE), Piece.create(Type.KING, Piece.Color.BLACK), Type.KING.getRepresentation());
     }
 
     void pieceCheck(Piece p1, Piece p2, char repr) {

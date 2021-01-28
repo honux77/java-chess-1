@@ -1,6 +1,7 @@
 package net.honux.chess;
 
 import net.honux.pieces.Piece;
+import net.honux.pieces.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +36,14 @@ public class Board {
 
     private void addOthers(Piece.Color color) {
         List<Piece> list = getList(color);
-        list.add(Piece.create(Piece.ROOK, color));
-        list.add(Piece.create(Piece.KNIGHT, color));
-        list.add(Piece.create(Piece.BISHOP, color));
-        list.add(Piece.create(Piece.QUEEN, color));
-        list.add(Piece.create(Piece.KING, color));
-        list.add(Piece.create(Piece.BISHOP, color));
-        list.add(Piece.create(Piece.KNIGHT, color));
-        list.add(Piece.create(Piece.ROOK, color));
+        list.add(Piece.create(Type.ROOK, color));
+        list.add(Piece.create(Type.KNIGHT, color));
+        list.add(Piece.create(Type.BISHOP, color));
+        list.add(Piece.create(Type.QUEEN, color));
+        list.add(Piece.create(Type.KING, color));
+        list.add(Piece.create(Type.BISHOP, color));
+        list.add(Piece.create(Type.KNIGHT, color));
+        list.add(Piece.create(Type.ROOK, color));
     }
 
     private void cleanDisplay() {
@@ -97,7 +98,7 @@ public class Board {
 
     private void addPawns(Piece.Color color) {
         for (int i = 0; i < W; i++) {
-            getList(color).add(Piece.create(Piece.PAWN, color));
+            getList(color).add(Piece.create(Type.PAWN, color));
         }
     }
 

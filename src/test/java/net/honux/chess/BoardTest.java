@@ -1,6 +1,7 @@
 package net.honux.chess;
 
 import net.honux.pieces.Piece;
+import net.honux.pieces.Type;
 import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.*;
 import static net.honux.utils.StringUtils.appendNewLine;
@@ -50,8 +51,8 @@ public class BoardTest {
     }
 
     void checkAddPawn(Piece.Color color, int size) {
-        if (color == Piece.Color.WHITE) board.add(Piece.create(Piece.PAWN, Piece.Color.WHITE));
-        if (color == Piece.Color.BLACK) board.add(Piece.create(Piece.PAWN, Piece.Color.BLACK));
+        if (color == Piece.Color.WHITE) board.add(Piece.create(Type.PAWN, Piece.Color.WHITE));
+        if (color == Piece.Color.BLACK) board.add(Piece.create(Type.PAWN, Piece.Color.BLACK));
         assertThat(board.getSize(color)).isEqualTo(size);
         assertThat(board.getPiece(color, size - 1).getColor()).isEqualTo(color);
     }
