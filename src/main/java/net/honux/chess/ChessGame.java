@@ -13,7 +13,6 @@ public class ChessGame {
 
     public ChessGame() {
         board = new Board();
-        board.init();
     }
 
     public void loop() {
