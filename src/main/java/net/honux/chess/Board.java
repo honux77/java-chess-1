@@ -3,9 +3,6 @@ package net.honux.chess;
 import net.honux.pieces.Piece;
 import net.honux.pieces.Type;
 
-import java.util.List;
-import static net.honux.utils.StringUtils.appendNewLine;
-
 public class Board {
 
     private final static int W = 8;
@@ -15,6 +12,9 @@ public class Board {
 
     public enum File {
         A(0), B(1), C(2), D(3), E(4), F(5), G(6), H(7);
+        private static File[] values = File.values();
+
+        public File next() {return values[(this.ordinal() + 1) % values.length]; }
 
         private int column;
 
@@ -39,6 +39,26 @@ public class Board {
         return size;
     }
 
+    public String getDisplayString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < H; i++) {
+            for (int j =0; j < W; j++) {
+                sb.append(pieces[i][j].getRepresentation());
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+    public void print() {
+        System.out.print(getDisplayString());
+    }
+
+    public void setPiece(Piece piece, File file, int rank) {
+        pieces[rank - 1][file.getColumn()] = piece;
+    }
+
     private void setEmptyPieces() {
         //TODO: refactor using setPiece
         int[] emptyRank = {1,2, 3, 4, 5, 6, 7, 8};
@@ -48,14 +68,6 @@ public class Board {
                 size++;
             }
         }
-    }
-
-    public void setPiece(Piece piece, File file, int rank) {
-        pieces[rank - 1][file.getColumn()] = piece;
-    }
-
-    public Piece getPiece(File file, int rank) {
-        return pieces[rank - 1][file.getColumn()];
     }
 
     private void addOthers(Piece.Color color) {
@@ -74,31 +86,11 @@ public class Board {
     private void addPawns(Piece.Color color) {
         int rank = 7;
         if (color == Piece.Color.BLACK) rank = 2;
-        setPiece(Piece.create(Type.PAWN, color), File.A, rank);
-        setPiece(Piece.create(Type.PAWN, color), File.B, rank);
-        setPiece(Piece.create(Type.PAWN, color), File.C, rank);
-        setPiece(Piece.create(Type.PAWN, color), File.D, rank);
-        setPiece(Piece.create(Type.PAWN, color), File.E, rank);
-        setPiece(Piece.create(Type.PAWN, color), File.F, rank);
-        setPiece(Piece.create(Type.PAWN, color), File.G, rank);
-        setPiece(Piece.create(Type.PAWN, color), File.H, rank);
-    }
-
-    public String getDisplayString() {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < H; i++) {
-            for (int j =0; j < W; j++) {
-                sb.append(pieces[i][j].getRepresentation());
-            }
-            sb.append('\n');
+        File curr = File.A;
+        for (int i = 0; i < W; i++) {
+            setPiece(Piece.create(Type.PAWN, color), curr, rank);
+            curr = curr.next();
         }
-        return sb.toString();
     }
-
-    public void print() {
-        System.out.print(getDisplayString());
-    }
-
 
 }
