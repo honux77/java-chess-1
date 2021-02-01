@@ -1,118 +1,135 @@
 package net.honux.chess;
 
 import net.honux.pieces.Piece;
-
-import java.util.ArrayList;
-import java.util.List;
-import static net.honux.utils.StringUtils.appendNewLine;
+import net.honux.pieces.Type;
 
 public class Board {
 
-    private List<Piece> whitePieceList = new ArrayList<>();
-    private List<Piece> blackPieceList = new ArrayList<>();
     private final static int W = 8;
     private final static int H = 8;
-    private final static int BLACK_L1 = 0;
-    private final static int BLACK_L2 = 1;
-    private final static int WHITE_L1 = 6;
-    private final static int WHITE_L2 = 7;
-    private String[] display = new String[H];
+    private int size = 0;
+    private Piece[][] pieces = new Piece[H][W];
 
-    public void init() {
-        whitePieceList.clear();
-        blackPieceList.clear();
-
-        addOthers(Piece.BLACK);
-        addPawns(Piece.BLACK);
-
-        addPawns(Piece.WHITE);
-        addOthers(Piece.WHITE);
-
-
-        cleanDisplay();
-        displayPawns();
+    public Piece getPiece(File file, int rank) {
+        return pieces[rank - 1][file.getColumn()];
     }
 
-    private void addOthers(String color) {
-        List<Piece> list = getList(color);
-        list.add(Piece.create(Piece.ROOK, color));
-        list.add(Piece.create(Piece.KNIGHT, color));
-        list.add(Piece.create(Piece.BISHOP, color));
-        list.add(Piece.create(Piece.QUEEN, color));
-        list.add(Piece.create(Piece.KING, color));
-        list.add(Piece.create(Piece.BISHOP, color));
-        list.add(Piece.create(Piece.KNIGHT, color));
-        list.add(Piece.create(Piece.ROOK, color));
-    }
-
-    private void cleanDisplay() {
+    public int size(Piece.Color color) {
+        int count = 0;
         for (int i = 0; i < H; i++) {
-            display[i] = emptyPieces();
+            for (int j = 0; j < W; j++) {
+                if (pieces[i][j].getColor() == color) count++;
+            }
         }
+        return count;
+    }
+
+    public double getScore(Piece.Color color) {
+        double score = 0.0f;
+        for (int i = 0; i < H; i++) {
+            for (int j = 0; j < W; j++) {
+                if (pieces[i][j].getColor() == color) score += pieces[i][j].getType().getScore();
+            }
+        }
+        score -= disadantagePawn(color);
+        return score;
+    }
+
+    private double disadantagePawn(Piece.Color color) {
+        double minus = 0.0f;
+        for (int i = 0; i < H; i++) {
+            int pawnCount = 0;
+            for (int j = 0; j < W; j++) {
+                if (pieces[i][j].getColor() == color && pieces[i][j].getType() == Type.PAWN) pawnCount++;
+            }
+            if (pawnCount > 1) minus += pawnCount * 0.5;
+        }
+        return minus;
+    }
+
+    public enum File {
+        A(0), B(1), C(2), D(3), E(4), F(5), G(6), H(7);
+        private static File[] values = File.values();
+
+        public File next() {
+            return values[(this.ordinal() + 1) % values.length];
+        }
+
+        private int column;
+
+        File(int column) {
+            this.column = column;
+        }
+
+        public int getColumn() {
+            return this.column;
+        }
+    }
+
+    public Board() {
+        setEmptyPieces();
+        addOthers(Piece.Color.BLACK);
+        addPawns(Piece.Color.BLACK);
+        addPawns(Piece.Color.WHITE);
+        addOthers(Piece.Color.WHITE);
+    }
+
+    public int size() {
+        return size;
     }
 
     public String getDisplayString() {
-        String ret = "";
-        for (String line: display) {
-            ret += appendNewLine(line);
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = H - 1; i >= 0; i--) {
+            for (int j = 0; j < W; j++) {
+                sb.append(pieces[i][j].getRepresentation());
+            }
+            sb.append('\n');
         }
-        return ret;
+        return sb.toString();
     }
 
     public void print() {
         System.out.print(getDisplayString());
     }
 
-    public int getSize(String color) {
-        return getList(color).size();
+    public void setPiece(Piece piece, File file, int rank) {
+        pieces[rank - 1][file.getColumn()] = piece;
     }
 
-    public void add(Piece piece) {
-        if (piece.getColor() == Piece.BLACK) {
-            blackPieceList.add(piece);
-        } else {
-            whitePieceList.add(piece);
+    private void setEmptyPieces() {
+        //TODO: refactor using setPiece
+        int[] emptyRank = {1, 2, 3, 4, 5, 6, 7, 8};
+        for (int i : emptyRank) {
+            for (int j = 0; j < W; j++) {
+                pieces[i - 1][j] = Piece.create(Type.NONE, Piece.Color.NO_COLOR);
+                size++;
+            }
         }
     }
 
-    public Piece getPiece(String color, int index) {
-        return getList(color).get(index);
+    private void addOthers(Piece.Color color) {
+        int rank = 1;
+        if (color == Piece.Color.BLACK) rank = 8;
+        setPiece(Piece.create(Type.ROOK, color), File.A, rank);
+        setPiece(Piece.create(Type.ROOK, color), File.H, rank);
+        setPiece(Piece.create(Type.KNIGHT, color), File.B, rank);
+        setPiece(Piece.create(Type.KNIGHT, color), File.G, rank);
+        setPiece(Piece.create(Type.BISHOP, color), File.C, rank);
+        setPiece(Piece.create(Type.BISHOP, color), File.F, rank);
+        setPiece(Piece.create(Type.QUEEN, color), File.D, rank);
+        setPiece(Piece.create(Type.KING, color), File.E, rank);
     }
 
-    private List<Piece> getList(String color) {
-        if (color == Piece.WHITE) return whitePieceList;
-        else return blackPieceList;
-    }
-
-    public String getPieces(String color, int line) {
-        StringBuilder sb = new StringBuilder();
-        List<Piece> pieces = getList(color);
-        int startIdx = 0;
-        if (line == 2) startIdx = W;
-        for(int i = startIdx; i < startIdx + W; i++) {
-            sb.append(pieces.get(i).getRepresentation());
-        }
-        return sb.toString();
-    }
-
-    private void addPawns(String color) {
+    private void addPawns(Piece.Color color) {
+        int rank = 2;
+        if (color == Piece.Color.BLACK) rank = 7;
+        File curr = File.A;
         for (int i = 0; i < W; i++) {
-            getList(color).add(Piece.create(Piece.PAWN, color));
+            setPiece(Piece.create(Type.PAWN, color), curr, rank);
+            curr = curr.next();
         }
     }
 
-    private void displayPawns() {
-        display[BLACK_L1] = getPieces(Piece.BLACK, 1);
-        display[BLACK_L2] = getPieces(Piece.BLACK, 2);
-        display[WHITE_L1] = getPieces(Piece.WHITE, 1);
-        display[WHITE_L2] = getPieces(Piece.WHITE, 2);
-    }
-
-    private String emptyPieces() {
-        return "........";
-    }
-
-    public int size() {
-        return this.whitePieceList.size() + this.blackPieceList.size();
-    }
 }
