@@ -46,7 +46,7 @@ public class Board {
     public String getDisplayString() {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < H; i++) {
+        for (int i = H - 1; i >= 0; i--) {
             for (int j =0; j < W; j++) {
                 sb.append(pieces[i][j].getRepresentation());
             }
@@ -75,8 +75,8 @@ public class Board {
     }
 
     private void addOthers(Piece.Color color) {
-        int rank = 8;
-        if (color == Piece.Color.BLACK) rank = 1;
+        int rank = 1;
+        if (color == Piece.Color.BLACK) rank = 8;
         setPiece(Piece.create(Type.ROOK, color), File.A, rank);
         setPiece(Piece.create(Type.ROOK, color), File.H, rank);
         setPiece(Piece.create(Type.KNIGHT, color), File.B, rank);
@@ -88,8 +88,8 @@ public class Board {
     }
 
     private void addPawns(Piece.Color color) {
-        int rank = 7;
-        if (color == Piece.Color.BLACK) rank = 2;
+        int rank = 2;
+        if (color == Piece.Color.BLACK) rank = 7;
         File curr = File.A;
         for (int i = 0; i < W; i++) {
             setPiece(Piece.create(Type.PAWN, color), curr, rank);
