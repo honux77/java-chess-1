@@ -64,6 +64,14 @@ public class BoardTest {
         assertThat(board.size(Piece.Color.WHITE)).isEqualTo(16);
         assertThat(board.size(Piece.Color.BLACK)).isEqualTo(16);
     }
+
+    @Test
+    @DisplayName("흑백 진영별로 점수를 계산해서 리턴해야 한다")
+    void getScore() {
+        double fullScore = 9 + 5 * 2 + 3 * 2 + 2.5 * 2 + 8 * 0.5;
+        assertThat((board.getScore(Piece.Color.WHITE))).isEqualTo(fullScore);
+        assertThat((board.getScore(Piece.Color.BLACK))).isEqualTo(fullScore);
+    }
 }
 
 

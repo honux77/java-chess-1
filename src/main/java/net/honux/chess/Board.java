@@ -16,19 +16,44 @@ public class Board {
 
     public int size(Piece.Color color) {
         int count = 0;
-        for (int i = 0; i < W; i++) {
-            for (int j =0; j < H; j++) {
+        for (int i = 0; i < H; i++) {
+            for (int j = 0; j < W; j++) {
                 if (pieces[i][j].getColor() == color) count++;
             }
         }
         return count;
     }
 
+    public double getScore(Piece.Color color) {
+        double score = 0.0f;
+        for (int i = 0; i < H; i++) {
+            for (int j = 0; j < W; j++) {
+                if (pieces[i][j].getColor() == color) score += pieces[i][j].getType().getScore();
+            }
+        }
+        score -= disadantagePawn(color);
+        return score;
+    }
+
+    private double disadantagePawn(Piece.Color color) {
+        double minus = 0.0f;
+        for (int i = 0; i < H; i++) {
+            int pawnCount = 0;
+            for (int j = 0; j < W; j++) {
+                if (pieces[i][j].getColor() == color && pieces[i][j].getType() == Type.PAWN) pawnCount++;
+            }
+            if (pawnCount > 1) minus += pawnCount * 0.5;
+        }
+        return minus;
+    }
+
     public enum File {
         A(0), B(1), C(2), D(3), E(4), F(5), G(6), H(7);
         private static File[] values = File.values();
 
-        public File next() {return values[(this.ordinal() + 1) % values.length]; }
+        public File next() {
+            return values[(this.ordinal() + 1) % values.length];
+        }
 
         private int column;
 
@@ -57,7 +82,7 @@ public class Board {
         StringBuilder sb = new StringBuilder();
 
         for (int i = H - 1; i >= 0; i--) {
-            for (int j =0; j < W; j++) {
+            for (int j = 0; j < W; j++) {
                 sb.append(pieces[i][j].getRepresentation());
             }
             sb.append('\n');
@@ -75,8 +100,8 @@ public class Board {
 
     private void setEmptyPieces() {
         //TODO: refactor using setPiece
-        int[] emptyRank = {1,2, 3, 4, 5, 6, 7, 8};
-        for (int i: emptyRank) {
+        int[] emptyRank = {1, 2, 3, 4, 5, 6, 7, 8};
+        for (int i : emptyRank) {
             for (int j = 0; j < W; j++) {
                 pieces[i - 1][j] = Piece.create(Type.NONE, Piece.Color.NO_COLOR);
                 size++;
@@ -91,10 +116,10 @@ public class Board {
         setPiece(Piece.create(Type.ROOK, color), File.H, rank);
         setPiece(Piece.create(Type.KNIGHT, color), File.B, rank);
         setPiece(Piece.create(Type.KNIGHT, color), File.G, rank);
-        setPiece(Piece.create(Type.BISHOP,color), File.C, rank);
-        setPiece(Piece.create(Type.BISHOP,color), File.F, rank);
-        setPiece(Piece.create(Type.QUEEN,color), File.D, rank);
-        setPiece(Piece.create(Type.KING,color), File.E, rank);
+        setPiece(Piece.create(Type.BISHOP, color), File.C, rank);
+        setPiece(Piece.create(Type.BISHOP, color), File.F, rank);
+        setPiece(Piece.create(Type.QUEEN, color), File.D, rank);
+        setPiece(Piece.create(Type.KING, color), File.E, rank);
     }
 
     private void addPawns(Piece.Color color) {
