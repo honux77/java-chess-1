@@ -1,5 +1,7 @@
 package net.honux.chess;
 
+import net.honux.pieces.Piece;
+import net.honux.pieces.Type;
 import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -34,11 +36,25 @@ public class BoardTest {
 
     @Test
     @DisplayName("체스보드 초기화후 각 기물들이 제자리이 있어야 한다")
-    public void checkBlackRepresentation() {
+    void checkBlackRepresentation() {
         String blankRank = "........\n";
         assertThat(board.getDisplayString()).isEqualTo(
                 "RNBQKBNR\n" + "PPPPPPPP\n" + blankRank + blankRank + blankRank + blankRank + "pppppppp\n" + "rnbqkbnr\n"
         );
+    }
+
+    @Test
+    @DisplayName("특정 위치의 기물을 확인할 수 있어야 한다.")
+    void getPiece() {
+        assertThat(board.getPiece(Board.File.A, 1).getColor()).isEqualTo(Piece.Color.WHITE);
+        assertThat(board.getPiece(Board.File.A, 2).getColor()).isEqualTo(Piece.Color.WHITE);
+        assertThat(board.getPiece(Board.File.A, 1).getType()).isEqualTo(Type.ROOK);
+        assertThat(board.getPiece(Board.File.A, 2).getType()).isEqualTo(Type.PAWN);
+
+        assertThat(board.getPiece(Board.File.E, 7).getColor()).isEqualTo(Piece.Color.BLACK);
+        assertThat(board.getPiece(Board.File.E, 8).getColor()).isEqualTo(Piece.Color.BLACK);
+        assertThat(board.getPiece(Board.File.E, 7).getType()).isEqualTo(Type.PAWN);
+        assertThat(board.getPiece(Board.File.E, 8).getType()).isEqualTo(Type.KING);
     }
 }
 
