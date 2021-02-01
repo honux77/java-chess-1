@@ -56,6 +56,14 @@ public class BoardTest {
         assertThat(board.getPiece(Board.File.E, 7).getType()).isEqualTo(Type.PAWN);
         assertThat(board.getPiece(Board.File.E, 8).getType()).isEqualTo(Type.KING);
     }
+
+    @Test
+    @DisplayName("흑백 피스 각각의 개수를 리턴해야 한다")
+    void getCount() {
+        assertThat(board.size()).isEqualTo(64);
+        assertThat(board.size(Piece.Color.WHITE)).isEqualTo(16);
+        assertThat(board.size(Piece.Color.BLACK)).isEqualTo(16);
+    }
 }
 
 

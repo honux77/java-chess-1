@@ -14,6 +14,16 @@ public class Board {
         return pieces[rank - 1][file.getColumn()];
     }
 
+    public int size(Piece.Color color) {
+        int count = 0;
+        for (int i = 0; i < W; i++) {
+            for (int j =0; j < H; j++) {
+                if (pieces[i][j].getColor() == color) count++;
+            }
+        }
+        return count;
+    }
+
     public enum File {
         A(0), B(1), C(2), D(3), E(4), F(5), G(6), H(7);
         private static File[] values = File.values();
